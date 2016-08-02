@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Trip Sorter</title>
+	<link rel="stylesheet" type="text/css" href="./demo.css">
+</head>
+<body>
+	<div id="wrapper">
+		<div class="block" id="add_block">
+			<span class="header">New Card: </span>
+			<form>
+				<div class="group">
+					<label for="card_type">Type: </label>
+					<select name="card_type" id="card_type">
+						<!-- -->
+					</select>
+				</div>
+				<div class="group">
+					<label for="card_from">From: </label>
+					<input type="text" name="card_from" id="card_from">
+				</div>
+				<div class="group">
+					<label for="card_to">To: </label>
+					<input type="text" name="card_to" id="card_to">
+				</div>
+				<div id="card_params">
+					<!-- -->
+				</div>
+				<div id="card_actions"> 
+					<button type="button" id="clear_btn">Clear</button>
+					<button type="button" id="add_btn">Add</button>
+				</div>
+			</form>
+		</div>
+		<div class="block" id="list_block">
+			<span class="header">Cards: </span>
+			<ul>
+				<!-- <li>Train from X to Y <span>remove</span></li> -->
+			</ul>
+		</div>
+		<div class="block" id="ways_block">
+			<span class="header">Way: </span>
+			<ul>
+				<!-- <li>Way from X to Y</li> -->
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var types = {
+			'bus': {
+				'title': 'Airport bus',
+				'format': 'Take the airport bus from {from} to {to}. [if seat]{seat}[endif][if not seat]No seat assignment[endif]',
+				'params': {
+					'seat': ['text', 'Seat'],
+				}
+			}, 
+			'train': {
+				'title': 'Train',
+				'format': 'Take train {number} from {from} to {to}. [if seat]Seat {seat}[endif]',
+				'params': {
+					'number': ['text', 'Train number'],
+					'seat': ['text', 'Seat']
+				}
+			},
+			'airplane': {
+				'title': 'Airplane',
+				'format': 'From {from}, take flight {flight} to {to}. Gate {gate}. Seat {seat}. [if transit]Baggage will be automatically transferred from your last leg[endif] [if information]{information}[endif].',
+				'params': {
+					'flight': ['text', 'Flight'],
+					'gate': ['text', 'Gate'],
+					'seat': ['text', 'Seat'],
+					'transit': ['checkbox', 'Transit'],
+					'information': ['text', 'Information'],
+				}
+			}
+		}
+		if (!localStorage.getItem('not_first')) {
+			localStorage.setItem('data', '[{"type":"bus","from":"Barcelona","to":"Gerona Airport","params":{"seat":""},"next":-1,"prev":-1},{"type":"train","from":"Madrid","to":"Barcelona","params":{"number":"78A","seat":"45B"},"next":-1,"prev":-1},{"type":"airplane","from":"Stockholm","to":"New York JFK","params":{"flight":"SK22","gate":"22","seat":"7B","transit":true,"information":""},"next":-1,"prev":-1},{"type":"airplane","from":"Gerona Airport","to":"Stockholm","params":{"flight":"SK455","gate":"45B","seat":"3A","transit":false,"information":"Baggage drop at ticket counter 344"},"next":-1,"prev":-1}]');
+			localStorage.setItem('not_first', '1');
+		}
+	</script>
+	<script type="text/javascript" src="../src/C.js"></script>
+	<script type="text/javascript" src="../src/cards.js"></script>
+	<script type="text/javascript" src="./demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CardList tests</title>
+	<style type="text/css">
+		#wrapper {
+			margin: 20px;
+			padding: 10px;
+			width: 500px;
+			border: 1px solid black;
+		}
+
+		#wrapper input {
+			width: 80%;
+		}
+
+		#wrapper button {
+			float: right;
+			width: 15%;
+		}
+
+		#wrapper textarea {
+			margin-top: 10px;
+			width: 94%;
+			padding: 3%;
+			height: 400px;
+
+			resize: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<input type="text" id="count" placeholder="count of cards"> <button type="button" id="start">start</button>
+		<textarea id="log" disabled="disabled"></textarea>
+	</div>
+	<script type="text/javascript" src="../src/cards.js"></script>
+	<script type="text/javascript">
+		var $ = document.querySelector.bind(document),
+			input = $('#count'),
+			btn = $('#start'),
+			log = $('#log');
+
+		btn.onclick = function() {
+			setTimeout(function(){
+				var count = parseInt(input.value) || 0;
+				if (count <= 0) return alert('Insert valid count of cards');
+				
+				input.disabled = true;
+				btn.disabled = true;
+
+				var start = new Date().getTime(), list = [];
+
+				_log(start, 'Count: ' + count);
+
+				while(count) {
+					list.push(new Card('example', intToStr(count), intToStr(--count)));
+				}
+
+				list = new CardList(shuffle(list));
+
+				_log(start, 'Start sorting');
+				list = list.sort();
+				_log(start, 'Sorting complete');
+				list.each(function(el, i, all) {
+					if (i < 10 || (all.length-i) < 10) {
+						_log(start, el.from + ' -- ' + el.to);
+					} else if (i == 11) {
+						_log(start, '...');
+					}
+				});
+				_log(start, '=========================');
+				input.disabled = false;
+				btn.disabled = false;
+			})
+		}
+
+		function intToStr(input) {
+			input = input.toString();
+			var alph = ["g", "e", "i", "b", "h", "f", "j", "a", "c", "d"],
+				len = input.length,
+				out = '';
+
+			while(len--) {
+				out += alph[input[len]];
+			}
+
+			return out;
+		}
+
+		function shuffle(o){
+		    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+		    return o;
+		}
+
+		function _log(time, line) {
+			time = new Date().getTime() - time;
+			log.value += "[" + (time/1000).toFixed(3) + "s] " + line + "\n";
+		}
+	</script>
+</body>
+</html>

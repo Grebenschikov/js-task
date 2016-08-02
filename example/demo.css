@@ -1,0 +1,74 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+body {
+	padding: 20px;
+}
+
+#wrapper {
+	min-width: 500px;
+	max-width: 1000px;
+	margin: 0 auto;
+	background: #cecece;
+	border-radius: 16px;
+}
+
+.block {
+	border-top: 2px dotted black;
+	padding: 16px;
+}
+
+.block:first-child {
+	border: none;
+}
+
+.header {
+	font-size: 25px;
+	display: block;
+}
+
+#add_block form {
+	display: inline-block;
+}
+
+.group {
+	margin: 5px 0;
+}
+
+.group label {
+	display: inline-block;
+	min-width: 100px;
+}
+
+.group input {
+	min-width: 274px;
+}
+
+.group select {
+	min-width: 280px;
+}
+
+#card_params .group input {
+	margin-left: 4px;
+}
+
+#add_btn {
+	float: right;
+}
+
+#list_block li span {
+	float: right;
+	color: #0700e0;
+}
+
+#list_block li span:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#list_block, #ways_block {
+	display: none;
+}
