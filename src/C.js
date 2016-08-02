@@ -102,28 +102,21 @@
 		};
 
 		this.addClass = function (cl) {
-			var now = this.param('className');
-			this.param('className', (now.replace(new RegExp('^|\\s(' + cl + ')\\s|$', 'g'), ' ') + ' ' + cl).trim());
+			this.first().classList.add(cl);
 			return this;
 		};
 
 		this.hasClass = function (cl) {
-			var now = this.param('className');
-			return new RegExp('^|\\s(' + cl + ')\\s|$', 'g').test(now);
+			return this.first().classList.contains(cl);
 		};
 
 		this.removeClass = function (cl) {
-			var now = this.param('className');
-			this.param('className', now.replace(new RegExp('^|\\s(' + cl + ')\\s|$', 'g'), ' ').trim());
+			this.first().classList.remove(cl);
 			return this;
 		};
 
 		this.toggleClass = function (cl) {
-			if (this.hasClass(cl)) {
-				this.removeClass(cl);
-			} else {
-				this.addClass(cl);
-			}
+			this.first().classList.toggle(cl);
 			return this;
 		};
 
